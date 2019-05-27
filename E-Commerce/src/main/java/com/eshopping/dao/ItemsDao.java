@@ -2,10 +2,9 @@ package com.eshopping.dao;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.eshopping.dto.Item;
 
@@ -14,22 +13,27 @@ import com.eshopping.dto.Item;
 public class ItemsDao {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@NotNull
 	@Column(name = "itemId", nullable = false, updatable = false, unique = true)
 	private String itemId;
 	
-	//@NotNull
+	@NotNull
 	@Column(name = "itemName", nullable = false)
 	private String itemName;
 	
-	//@NotNull
+	@NotNull
 	@Column(name = "itemCost", nullable = false)
 	private int itemCost;
 	
-	//@NotNull
+	@NotNull
 	@Column(name = "quantity", nullable = false)
 	private int quantity;
 	
+	public ItemsDao() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public ItemsDao(Item item) {
 		this.itemId = item.getItemId();
 		this.itemName = item.getItemName();

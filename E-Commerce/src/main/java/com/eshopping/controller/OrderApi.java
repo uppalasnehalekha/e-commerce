@@ -15,12 +15,9 @@ public interface OrderApi {
 			consumes = {"application/json"})
 	ResponseEntity<Object> placeOrder(@RequestBody Order order);
 	
+	
 	@GetMapping(value = "/getOrders",
 			produces = {"application/json"})
-	ResponseEntity<Object> getAllOrders();
-	
-	@GetMapping(value = "/getOrderDetails",
-			produces = {"application/json"})
-	ResponseEntity<Object> getOrderDetails(@RequestParam String orderId);
+	ResponseEntity<Object> getOrderDetails(@RequestParam(value = "orderId", required = false) String orderId);
 
 }

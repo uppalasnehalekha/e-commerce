@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eshopping.dto.Order;
@@ -25,18 +27,20 @@ public class OrderController implements OrderApi{
 	}
 
 	@Override
-	public ResponseEntity<Object> placeOrder(Order order) {
-		Order response = (Order)orderService.placeOrder(order);
-		return ResponseEntity.created(URI.create("http://"+this.request.getLocalName()+":"+this.request.getLocalPort()+"?orderId="+response.getOrderId())).body(response);
-	}
-
+	public ResponseEntity<Object> placeOrder(@RequestBody Order order) {
+		Object object = orderService.placeOrder(order);
+		if(object instanceof Order) {
+			 Order response = (Order)object;
+			return ResponseEntity.created(URI.create("http://"+this.request.getLocalName()+":"+this.request.getLocalPort()+"?orderId="+response.getOrderId())).body(response);
+		}
+		return ResponseEntity.unprocessableEntity().body(object);
+	}	
+		
 	@Override
-	public ResponseEntity<Object> getAllOrders() {
-		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(orderService.getAllOrders());
-	}
-
-	@Override
-	public ResponseEntity<Object> getOrderDetails(String orderId) {
+	public ResponseEntity<Object> getOrderDetails(@RequestParam(value = "orderId", required = false) String orderId) {
+		if(orderId == null) {
+			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(orderService.getAllOrders());
+		}
 		return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(orderService.getOrderDetails(orderId));
 	}
 

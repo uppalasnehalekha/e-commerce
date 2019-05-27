@@ -1,6 +1,6 @@
 package com.eshopping.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,13 +14,9 @@ import com.eshopping.dto.Item;
 
 public interface ItemApi {
 	
-	/*@GetMapping(value = "/items",
-			produces = {"application/json"})
-	ResponseEntity<Object> getAllItems();*/
-	
 	@GetMapping(value = "/items",
 			produces = {"application/json"})
-	ResponseEntity<Object> getItemById(@RequestParam("itemId") String itemId);
+	ResponseEntity<Object> getItemById(@RequestParam(value = "itemId", required = false) String itemId);
 	
 	@PutMapping(value = "/updateItem",
 			produces = {"application/json"},
@@ -30,7 +26,7 @@ public interface ItemApi {
 	@PostMapping(value = "/addItems",
 			produces = {"application/json"},
 			consumes = {"application/json"})
-	ResponseEntity<Object> addItems(@RequestBody ArrayList<Item> items);
+	ResponseEntity<Object> addItems(@RequestBody List<Item> items);
 	
 	@DeleteMapping(value = "/deleteItem")
 	ResponseEntity<Object> deleteItem(@RequestParam("itemId") String itemId);

@@ -1,27 +1,28 @@
 package com.eshopping.dao;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.eshopping.dto.Order;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @Table(name = "Orders")
 public class OrdersDao {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false, updatable = false, unique = true)
+	@NotNull
+	@Column(name = "orderId", nullable = false, updatable = false, unique = true)
 	private String orderId;
 	
 	@NotNull
 	@Column(name = "itemsListDoc", columnDefinition = "json")
-	private String itemsList;
+	private String itemsListDoc;
 	
 	@NotNull
 	@Column(name = "emailId", nullable = false)
@@ -32,13 +33,48 @@ public class OrdersDao {
 	
 	@Column(name = "phoneNumber")
 	private int phoneNumber;
+	
+	@Column(name = "orderTime")
+	private Date orderTime;
+	
+	@Column(name = "billingAmount")
+	private float billingAmount;
+	
+	public OrdersDao() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public OrdersDao(Order order) {
+		ObjectMapper om = new ObjectMapper();
 		this.orderId = order.getOrderId();
-		this.itemsList = order.getItemList().toString();
+		try {
+			this.itemsListDoc = om.writeValueAsString(order.getItemList());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		this.emailId = order.getEmailId();
 		this.address = order.getAddress();
 		this.phoneNumber = order.getPhoneNumber();
+		this.billingAmount = order.getBillingAmount();
+		this.orderTime = order.getOrderTime();
+		
+	}
+	
+	public Date getOrderTime() {
+		return orderTime;
+	}
+
+	public void setOrderTime(Date orderTime) {
+		this.orderTime = orderTime;
+	}
+
+	public float getBillingAmount() {
+		return billingAmount;
+	}
+
+	public void setBillingAmount(float billingAmount) {
+		this.billingAmount = billingAmount;
 	}
 
 	public String getOrderId() {
@@ -49,12 +85,12 @@ public class OrdersDao {
 		this.orderId = orderId;
 	}
 
-	public String getItemsList() {
-		return itemsList;
+	public String getItemsListDoc() {
+		return itemsListDoc;
 	}
 
-	public void setItemsList(String itemsList) {
-		this.itemsList = itemsList;
+	public void setItemsListDoc(String itemsListDoc) {
+		this.itemsListDoc = itemsListDoc;
 	}
 
 	public String getEmailId() {
@@ -86,10 +122,12 @@ public class OrdersDao {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + Float.floatToIntBits(billingAmount);
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
-		result = prime * result + ((itemsList == null) ? 0 : itemsList.hashCode());
+		result = prime * result + ((itemsListDoc == null) ? 0 : itemsListDoc.hashCode());
 		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
-		result = prime * result + (int) (phoneNumber ^ (phoneNumber >>> 32));
+		result = prime * result + ((orderTime == null) ? 0 : orderTime.hashCode());
+		result = prime * result + phoneNumber;
 		return result;
 	}
 
@@ -107,20 +145,27 @@ public class OrdersDao {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
+		if (Float.floatToIntBits(billingAmount) != Float.floatToIntBits(other.billingAmount))
+			return false;
 		if (emailId == null) {
 			if (other.emailId != null)
 				return false;
 		} else if (!emailId.equals(other.emailId))
 			return false;
-		if (itemsList == null) {
-			if (other.itemsList != null)
+		if (itemsListDoc == null) {
+			if (other.itemsListDoc != null)
 				return false;
-		} else if (!itemsList.equals(other.itemsList))
+		} else if (!itemsListDoc.equals(other.itemsListDoc))
 			return false;
 		if (orderId == null) {
 			if (other.orderId != null)
 				return false;
 		} else if (!orderId.equals(other.orderId))
+			return false;
+		if (orderTime == null) {
+			if (other.orderTime != null)
+				return false;
+		} else if (!orderTime.equals(other.orderTime))
 			return false;
 		if (phoneNumber != other.phoneNumber)
 			return false;
@@ -129,8 +174,9 @@ public class OrdersDao {
 
 	@Override
 	public String toString() {
-		return "OrdersDao [orderId=" + orderId + ", itemsList=" + itemsList + ", emailId=" + emailId + ", address="
-				+ address + ", phoneNumber=" + phoneNumber + "]";
+		return "OrdersDao [orderId=" + orderId + ", itemsListDoc=" + itemsListDoc + ", emailId=" + emailId
+				+ ", address=" + address + ", phoneNumber=" + phoneNumber + ", orderTime=" + orderTime
+				+ ", billingAmount=" + billingAmount + "]";
 	}
-	
+
 }

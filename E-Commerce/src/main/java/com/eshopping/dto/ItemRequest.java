@@ -5,40 +5,27 @@ import javax.validation.constraints.NotNull;
 
 import com.eshopping.dao.ItemsDao;
 
-public class Item {
+public class ItemRequest {
 	
 	@NotNull
 	private String itemId;
 	
 	@NotNull
-	private String itemName;
-	
-	@NotNull
 	@Min(value = 1,message="must be positive")
 	private int quantity;
 	
-	@NotNull
-	@Min(value = 1, message = "must be positive")
-	private int itemCost;
-	
-	public Item() {
+	public ItemRequest() {
 		super();
 	}
 	
-	public Item(String itemId, String itemName, int quantity, int itemCost) {
+	public ItemRequest(String itemId, String itemName, int quantity, int itemCost) {
 		super();
 		this.itemId = itemId;
-		this.itemName = itemName;
 		this.quantity = quantity;
-		this.itemCost = itemCost;
 	}
 
-
-
-	public Item(ItemsDao itemsDao) {
+	public ItemRequest(ItemsDao itemsDao) {
 		this.itemId = itemsDao.getItemId();
-		this.itemName = itemsDao.getItemName();
-		this.itemCost = itemsDao.getItemCost();
 		this.quantity = itemsDao.getQuantity();
 	}
 
@@ -48,22 +35,6 @@ public class Item {
 
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
-	}
-
-	public String getItemName() {
-		return itemName;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
-	public int getItemCost() {
-		return itemCost;
-	}
-
-	public void setItemCost(int itemCost) {
-		this.itemCost = itemCost;
 	}
 
 	public int getQuantity() {
@@ -78,9 +49,7 @@ public class Item {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + itemCost;
 		result = prime * result + ((itemId == null) ? 0 : itemId.hashCode());
-		result = prime * result + ((itemName == null) ? 0 : itemName.hashCode());
 		result = prime * result + quantity;
 		return result;
 	}
@@ -93,18 +62,11 @@ public class Item {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Item other = (Item) obj;
-		if (itemCost != other.itemCost)
-			return false;
+		ItemRequest other = (ItemRequest) obj;
 		if (itemId == null) {
 			if (other.itemId != null)
 				return false;
 		} else if (!itemId.equals(other.itemId))
-			return false;
-		if (itemName == null) {
-			if (other.itemName != null)
-				return false;
-		} else if (!itemName.equals(other.itemName))
 			return false;
 		if (quantity != other.quantity)
 			return false;
@@ -113,8 +75,8 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", itemCost=" + itemCost + ", quantity=" + quantity
-				+ "]";
+		return "ItemRequest [itemId=" + itemId + ", quantity=" + quantity + "]";
 	}
+
 	
 }
