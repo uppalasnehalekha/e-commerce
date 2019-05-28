@@ -6,6 +6,8 @@
 
 - [x] - Java 8 version is supported
 
+- [x] - Replace MySQL credentials in application.properties file default are given.
+
 ### Installation
 
 #### `Step 1` - clone the repo
