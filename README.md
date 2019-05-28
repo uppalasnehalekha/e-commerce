@@ -2,7 +2,7 @@
 *Backend support for e-commerce website
 ## Pre-requisuites
 
-- [x] - MySQL should be up and coming at 3306 port.
+- [x] - MySQL should be up and running at 3306 port.
 
 - [x] - Java 8 version is supported
 
