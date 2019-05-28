@@ -15,17 +15,10 @@ $ git clone https://github.com/uppalasnehalekha/e-commerce.git
 $ cd e-commerce
 ```
 
-#### `Step 3` - install dependencies
+#### `Step 3` - run application
 
 ```bash
-$ ./gradlew clean
-$ ./gradlew build
-```
-
-#### `Step 4` - run application
-
-```bash
-$ java -jar e-commerce.jar
+$ ./gradlew bootRun
 ```
 
 In browser, open [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) for more API info.
