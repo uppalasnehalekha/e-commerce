@@ -38,7 +38,7 @@ public class Order {
 		ObjectMapper om = new ObjectMapper();
 		this.orderId = ordersDao.getOrderId();
 		try {
-			this.itemList = om.readValue(ordersDao.getItemsListDoc(), new TypeReference<ArrayList<Item>>(){});
+			this.itemList = om.readValue(ordersDao.getItemsListDoc(), new TypeReference<ArrayList<ItemRequest>>(){});
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
