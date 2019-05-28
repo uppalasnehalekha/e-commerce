@@ -1,2 +1,49 @@
-# e-commerce
-backend of e-commerce site
+
+*Backend support for e-commerce website
+
+### Installation
+
+#### `Step 1` - clone the repo
+
+```bash
+$ git clone https://github.com/uppalasnehalekha/e-commerce.git
+```
+
+#### `Step 2` - cd in the repo
+
+```bash
+$ cd e-commerce
+```
+
+#### `Step 3` - install dependencies
+
+```bash
+$ ./gradlew clean
+$ ./gradlew build
+```
+
+#### `Step 4` - run application
+
+```bash
+$ java -jar e-commerce.jar
+```
+
+In browser, open [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) for more API info.
+
+## Main Features
+
+- [x] - Add Items
+
+- [x] - Update Item
+
+- [x] - Get Item by ItemId
+
+- [x] - Get All Items
+
+- [x] - Delete an Item
+
+- [x] - Place an Order
+
+- [x] - Get all Orders
+
+- [x] - Get Order by OrderId
