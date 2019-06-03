@@ -16,13 +16,13 @@
 $ git clone https://github.com/uppalasnehalekha/e-commerce.git
 ```
 
-#### `Step 2` - Go into the repo
+#### `Step 2` - go into the repo
 
 ```bash
 $ cd e-commerce
 ```
 
-#### `Step 3` - run application
+#### `Step 3` - run the application
 
 ```bash
 $ ./gradlew bootRun
