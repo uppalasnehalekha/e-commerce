@@ -16,7 +16,7 @@
 $ git clone https://github.com/uppalasnehalekha/e-commerce.git
 ```
 
-#### `Step 2` - cd in the repo
+#### `Step 2` - Go into the repo
 
 ```bash
 $ cd e-commerce
